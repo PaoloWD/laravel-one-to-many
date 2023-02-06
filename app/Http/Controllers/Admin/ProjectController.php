@@ -8,6 +8,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,7 +33,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -44,6 +46,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+        
     
         if (key_exists('cover_img', $data)){
             $path = Storage::put('projects', $data['cover_img']);
@@ -65,6 +68,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
         return view("admin.projects.show", compact("project"));
     }
 

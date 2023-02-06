@@ -10,6 +10,7 @@
     <h5 class="card-title">Nome repo: {{$project->name}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">Descrizione repo: {{$project->description}}</h6>
     <p class="card-text">Link GitHub: {{$project->link}}</p>
+    <div class="card-title">Tipo di progetto: {{ $project->type ? $project->type->name : 'nessun tipo scelto' }}</div>
     <a href="{{ route('admin.dashboard')}}" class="btn btn-primary">Torna indietro</a>
     
     <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary">

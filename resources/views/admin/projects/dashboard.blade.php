@@ -22,6 +22,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Link GitHub</th>
+                            <th scope="col">Tipo di progetto</th>
                             <th scope="col">Manage</th>
                           </tr>
                         </thead>
@@ -32,6 +33,8 @@
                               <td>{{$project->name}}</td>
                               <td>{{Str::limit($project->description, 10)}}</td>
                               <td>{{Str::limit($project->link, 10)}}</td>
+                              <td><div class="card-title">{{ $project->type ? $project->type->name : 'nessun tipo scelto' }}</div>
+                              </td>
                               <td class="text-center"><a href={{route("admin.projects.edit", $project->id)}} class="btn btn-primary">E</a>
                                 <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="delete-form d-inline-block">
                                   @csrf()
