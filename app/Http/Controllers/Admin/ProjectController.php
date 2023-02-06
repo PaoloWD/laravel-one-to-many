@@ -46,17 +46,14 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+        $project = Project::create($data);
         
     
         if (key_exists('cover_img', $data)){
             $path = Storage::put('projects', $data['cover_img']);
-        }
-       $project = Project::create($data);
-       $project->cover_img = $path;
-       $project->save();
-        
-        
-
+            $project->cover_img = $path;
+        } 
+        $project->save();
         return redirect()->route("admin.projects.show", $project->id);
     }
 
@@ -80,7 +77,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -93,6 +91,8 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $data=$request->validated();
+        $project->update($data);
+        
         if(key_exists("cover_img", $data)){
             $path = Storage::put("projects", $data["cover_img"]);
             Storage::delete($project->cover_img);
